@@ -1,4 +1,4 @@
-import {BiShow as icon} from 'react-icons/bi'
+import {BiPurchaseTagAlt as icon} from 'react-icons/bi'
 
 export default {
   name: 'tagItem',
@@ -16,10 +16,9 @@ export default {
       title: 'URL',
       type: 'slug',
       options: {
-        source: 'referenceTitle',
+        source: 'title',
         maxLength: 100,
       },
-      hidden:true,
     },
     {
       name: 'image',

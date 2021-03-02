@@ -1,4 +1,4 @@
-import {BiShow as icon} from 'react-icons/bi'
+import {BiIdCard as icon} from 'react-icons/bi'
 
 export default {
   name: 'referenceItem',
@@ -12,16 +12,11 @@ export default {
       type: 'string',
     },
     {
-      name: 'referenceSubTitle',
-      title: 'Sub title',
-      type: 'string',
-    },
-    {
       name: 'slug',
       title: 'URL',
       type: 'slug',
       options: {
-        source: 'referenceTitle',
+        source: 'title',
         maxLength: 100,
       },
     },
