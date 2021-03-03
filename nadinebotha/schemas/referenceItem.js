@@ -19,12 +19,7 @@ export default {
         source: 'title',
         maxLength: 100,
       },
-    },
-    {
-      name: 'referenceImages',
-      title: 'Images',
-      type: 'array',
-      of: [{type: 'referenceImage'}],
+      description: 'The unique string at the end of the URL. Click "generate" to generate this automatically.'
     },
     {
       name: 'referenceText',
@@ -32,7 +27,7 @@ export default {
       type: 'blockContent',
     },
     {
-      title: 'Tags',
+      title: 'Tags or references',
       name: 'referenceTags',
       type: 'array',
       of: [

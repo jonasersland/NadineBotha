@@ -22,7 +22,7 @@ useEffect(() => {
           title,
           _type,
           "references": referenceTags[]{"matched": *[_id == ^._ref]},
-          "tagged": *[references(^._id)]{ title,slug },
+          "tagged": *[references(^._id)]{ title,slug }
         }`
     )
     .then((data) => setPostData(data[0]))
@@ -36,10 +36,11 @@ console.log(postData);
         {
         (postData._type != 'tagItem')
           ?
-          <div>
-            <h1>{postData.title} - {'('+ postData._type +')'}</h1>
+          <div className="content">
+            <div className="title">{postData.title} - {'('+ postData._type +')'}</div>
             <br/>
             Tags or references:
+            <br/>
             <br/>
             {postData.references.map(
               (post, index) =>
@@ -54,10 +55,11 @@ console.log(postData);
             }
           </div>
           : 
-          <div>
-            <h2>{postData.title} - {'('+ postData._type +')'}</h2>
+          <div className="content">
+            <div className="title">{postData.title} - {'('+ postData._type +')'}</div>
             <br/>
             Items tagged with {postData.title}:
+            <br/>
             <br/>
             {postData.tagged.map(
               (post, index) =>

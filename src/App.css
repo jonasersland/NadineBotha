@@ -1,3 +1,41 @@
+body{
+  font-family: 'Inter';
+  font-size: 1.5rem;
+  font-weight:400;
+}
+
+a{
+  color: #4e5d79;
+  text-decoration: none;
+  background: #d7e2f7;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+a:hover{
+  background: #c7d6f3;
+}
+
+.content{
+  margin:20px;
+}
+.title{
+  font-weight:600;
+}
+
+.half{
+  width:50%;
+  float:left;
+}
+
+.third{
+  width:33%;
+  float:left;
+}
+
 .App {
   text-align: center;
 }

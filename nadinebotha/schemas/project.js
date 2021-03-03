@@ -12,24 +12,14 @@ export default {
         type: 'string',
       },
       {
-        name: 'projectSubTitle',
-        title: 'Sub title',
-        type: 'string',
-      },
-      {
         name: 'slug',
         title: 'URL',
         type: 'slug',
         options: {
-          source: 'projectTitle',
+          source: 'title',
           maxLength: 100,
         },
-      },
-      {
-        name: 'projectImages',
-        title: 'Images',
-        type: 'array',
-        of: [{type: 'projectImage'}],
+        description: 'The unique string at the end of the URL. Click "generate" to generate this automatically.'
       },
       {
         name: 'projectText',
@@ -37,7 +27,7 @@ export default {
         type: 'blockContent',
       },
       {
-        title: 'Tags',
+        title: 'Tags and references',
         name: 'referenceTags',
         type: 'array',
         of: [
