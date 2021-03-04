@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import LinkElement from '../linkElement/linkElement.component';
 
-const Right = ({position, content, dispatchAddToHistory}) =>{
+const Right = ({position, content, addHistoryElement}) =>{
+console.log(position);
     return(
     <div className={`thirdWrapper ${content._type}`}>
             {/* <button onClick={historyForward}>forward</button> */}
@@ -20,7 +21,7 @@ const Right = ({position, content, dispatchAddToHistory}) =>{
               (post, index) =>
                 (
                   <div key={index}>
-                      <div onClick={() => dispatchAddToHistory({ type: 'add', payload: {position:position,id:post.matched[0].slug.current} })} linkelementtarget={post.matched[0].slug.current} className={`linkElement ${post.matched[0]._type}`}>{post.matched[0].title}</div>
+                      <div linkelementtarget={post.matched[0].slug.current} onClick={function(e){addHistoryElement(e)}} className={`linkElement ${post.matched[0]._type}`}>{post.matched[0].title}</div>
                   </div>
                 )
               )
@@ -37,7 +38,7 @@ const Right = ({position, content, dispatchAddToHistory}) =>{
               (post, index) =>
                 (
                   <div key={index}>
-                      <div onClick={() => dispatchAddToHistory({ type: 'add', payload: {position:position,id:post.slug.current} })} linkelementtarget={post.slug.current} className={`linkElement ${post._type}`}>{post.title}</div>
+                      <div linkelementtarget={post.slug.current} onClick={function(e, position){addHistoryElement(e, position)}} className={`linkElement ${post._type}`}>{post.title}</div>
                   </div>
                 )
               )

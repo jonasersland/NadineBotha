@@ -12,51 +12,87 @@ function urlFor(source) {
   return builder.image(source);
 }
 
+
+const browseHistory = ['flowers', '1980',''];
+
+    const historyReducer = (browseHistory, action) => {
+        console.log(action.payload);
+        switch (action.type){
+            case 'add':
+                const addToBrowseHistory = [...browseHistory];
+                switch (action.payload.position){
+                    case 'left':
+                        //console.log(action.payload.position);
+                         addToBrowseHistory.pop();
+                         addToBrowseHistory.pop();
+                    break;
+                    case 'middle':
+                        //console.log(action.payload.position);
+                         addToBrowseHistory.pop();
+                    break;
+                    case 'right':
+                        //console.log(action.payload.position);
+                    break;
+                }
+                addToBrowseHistory.push(action.payload.id);
+                console.log(addToBrowseHistory);
+                return addToBrowseHistory;
+            break;
+            case 'forward':
+                const forwardBrowseHistory = [...browseHistory];
+                forwardBrowseHistory.push(action.payload);
+                // newBrowseHistory.shift();
+                console.log(forwardBrowseHistory);
+                return forwardBrowseHistory;
+            break;
+            case 'backward':
+                const backwardBrowseHistory = [...browseHistory];
+                backwardBrowseHistory.pop();
+                console.log(backwardBrowseHistory);
+                return backwardBrowseHistory;
+            break;
+            default:
+                return;
+        }
+    }
+
 const OnePost = () => { 
 
-const [browseHistory, setBrowseHistory] = useState(['flowers', '1980', 'ocean']);
+const [historyState, dispatch] = useReducer(historyReducer, browseHistory);
 const [postData, setPostData] = useState(null);
 const {slug} = useParams();
 
-// const historyReducer = (browseHistory, action) => {
-//     if(action.type == 'forward') {
-//         const newBrowseHistory = [...browseHistory];
-//         newBrowseHistory.push(action.payload);
-//         newBrowseHistory.shift();
-//         console.log(browseHistory);
-//         return newBrowseHistory;
-//     }
-//     if(action.type == 'backward') {
-//         const newBrowseHistory = [...browseHistory];
-//         newBrowseHistory.pop();
-//         console.log(newBrowseHistory);
-//         return newBrowseHistory;
-//     }
-// }
-    
-// const [state, dispatch] = useReducer(historyReducer, browseHistory);
+function dispatchAddToHistory(historyItem) {
+    console.log(historyItem);
+    dispatch({ type: historyItem.type, payload: {id:historyItem.payload.id,position:historyItem.payload.position} });
+}
 
-// function historyForward(historyItem) {
-//     dispatch({ type: 'forward', payload: historyItem });
-//   }
+function returnHistoryState(pos){
+    console.log(pos);
+    let returnedPos = '';
+    if((historyState.length-pos) != null){
+        returnedPos = historyState[(historyState.length-pos)]
+    }
+    return returnedPos;
+}
 
 useEffect(() => {
     sanityClient
     .fetch(
-        `*[slug.current == "${browseHistory[browseHistory.length-1]}"]{
+        `*[slug.current == "${returnHistoryState(1)}"]{
             "current":{
                 title,
                 _type,
                 "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
                 "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
             },
-            "prev": *[slug.current == "${browseHistory[browseHistory.length-2]}"]{
+            "prev": *[slug.current == "${returnHistoryState(2)}"]{
             title,
             _type,
             "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
             "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
             },
-          "prevprev": *[slug.current == "${browseHistory[browseHistory.length-3]}"]{
+          "prevprev": *[slug.current == "${returnHistoryState(3)}"]{
             title,
             _type,
             "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
@@ -66,20 +102,7 @@ useEffect(() => {
     )
     .then((data) => setPostData(data[0]))
     .catch(console.error);
-}, [browseHistory]);
-
-function historyBackward() {
-    const newBrowseHistory = [...browseHistory];
-    newBrowseHistory.pop();
-    setBrowseHistory(newBrowseHistory)
-}
-
-function historyForward(e) {
-    //console.log(e);
-    const newBrowseHistory = [...browseHistory];
-    newBrowseHistory.push(e.target.attributes[0].nodeValue);
-    setBrowseHistory(newBrowseHistory)
-}
+}, [slug, historyState]);
 
 console.log(postData);
 
@@ -92,12 +115,12 @@ var left = postData.prevprev[0];
   return (
     <div className="home">
         <div className="nav">
-            <div onClick={() => historyBackward}>&larr; Backward</div> <div onClick={() => historyBackward}>Forward &rarr; </div>
+            <div> &larr; Backward </div> <div onClick={() => dispatch({ type: 'forward', payload: 'glass' })}> Forward &rarr; </div>
         </div>
         <div className="content">
-            <Third content={left} historyBackward={historyBackward} historyForward={historyForward}/>
-            <Third content={middle} historyBackward={historyBackward} historyForward={historyForward}/>
-            <Third content={right} historyBackward={historyBackward} historyForward={historyForward}/>
+            <Third position='left' content={left} dispatchAddToHistory={dispatchAddToHistory}/>
+            <Third position='middle' content={middle} dispatchAddToHistory={dispatchAddToHistory}/>
+            <Third position='right' content={right} dispatchAddToHistory={dispatchAddToHistory}/>
         </div>
     </div>
   );
