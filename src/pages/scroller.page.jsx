@@ -76,30 +76,50 @@ function returnHistoryState(pos){
     return returnedPos;
 }
 
+function historyStateHasContent(i){
+    console.log(historyState[historyState.length-i]);
+    let condition;
+    if (!historyState[historyState.length-i]){
+        console.log('false');
+        condition = false
+    } else{
+        console.log('true');
+        condition = true
+    }
+    return condition
+}
+
 useEffect(() => {
+    let fetchRequest = 
+        `*[]{${historyStateHasContent(1) ? `
+        "current":*[slug.current == "${returnHistoryState(1)}"]{
+                    title,
+                    _type,
+                    "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
+                    "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
+                },
+            `:``}
+        ${historyStateHasContent(2) ? `
+            "prev": *[slug.current == "${returnHistoryState(2)}"]
+                {
+                    title,
+                    _type,
+                    "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
+                    "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
+                },
+            `:``}
+        ${historyStateHasContent(3) ? `
+            "prevprev": *[slug.current == "${returnHistoryState(3)}"]
+                {
+                    title,
+                    _type,
+                    "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
+                    "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
+                },
+            `:``}}`; 
+console.log(fetchRequest);
     sanityClient
-    .fetch(
-        `*[slug.current == "${returnHistoryState(1)}"]{
-            "current":{
-                title,
-                _type,
-                "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
-                "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
-            },
-            "prev": *[slug.current == "${returnHistoryState(2)}"]{
-            title,
-            _type,
-            "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
-            "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
-            },
-          "prevprev": *[slug.current == "${returnHistoryState(3)}"]{
-            title,
-            _type,
-            "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
-            "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
-          },
-        }`
-    )
+    .fetch(fetchRequest)
     .then((data) => setPostData(data[0]))
     .catch(console.error);
 }, [slug, historyState]);
@@ -108,9 +128,10 @@ console.log(postData);
 
 if (!postData) return <div>Loading...</div>;
 
-var right = postData.current;
-var middle = postData.prev[0];
-var left = postData.prevprev[0];
+// add condition setting data only if it exists
+// var right = postData.current;
+// var middle = postData.prev[0];
+// var left = postData.prevprev[0];
 
   return (
     <div className="home">
@@ -118,9 +139,15 @@ var left = postData.prevprev[0];
             <div> &larr; Backward </div> <div onClick={() => dispatch({ type: 'forward', payload: 'glass' })}> Forward &rarr; </div>
         </div>
         <div className="content">
-            <Third position='left' content={left} dispatchAddToHistory={dispatchAddToHistory}/>
-            <Third position='middle' content={middle} dispatchAddToHistory={dispatchAddToHistory}/>
-            <Third position='right' content={right} dispatchAddToHistory={dispatchAddToHistory}/>
+            {postData.prevprev[0] != null ?
+            <Third position='left' content={postData.prevprev[0]} dispatchAddToHistory={dispatchAddToHistory}/>
+            :''}
+            {postData.prev[0] != null ?
+            <Third position='middle' content={postData.prev[0]} dispatchAddToHistory={dispatchAddToHistory}/>
+            :''}
+            {postData.current != null ?
+            <Third position='right' content={postData.current[0]} dispatchAddToHistory={dispatchAddToHistory}/>
+            :''}
         </div>
     </div>
   );

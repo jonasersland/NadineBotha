@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import LinkElement from '../linkElement/linkElement.component';
-
 const Right = ({position, content, dispatchAddToHistory}) =>{
+    console.log(content);
+    if (!content) return <div>Loading...</div>;
     return(
     <div className={`thirdWrapper ${content._type}`}>
-            {/* <button onClick={historyForward}>forward</button> */}
         {
         (content._type != 'tagItem')
           ?
