@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Route component={scroller} path="/:slug" />
+        <Route component={scroller} path="/" />
       </div>
     </BrowserRouter>
   );

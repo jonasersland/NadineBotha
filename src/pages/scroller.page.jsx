@@ -48,19 +48,19 @@ useEffect(() => {
                 title,
                 _type,
                 "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
-                "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug },
+                "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
             },
             "prev": *[slug.current == "${browseHistory[browseHistory.length-2]}"]{
             title,
             _type,
             "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
-            "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug },
+            "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
             },
           "prevprev": *[slug.current == "${browseHistory[browseHistory.length-3]}"]{
             title,
             _type,
             "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
-            "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug },
+            "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
           },
         }`
     )
@@ -75,6 +75,7 @@ function historyBackward() {
 }
 
 function historyForward(e) {
+    //console.log(e);
     const newBrowseHistory = [...browseHistory];
     newBrowseHistory.push(e.target.attributes[0].nodeValue);
     setBrowseHistory(newBrowseHistory)
@@ -91,10 +92,13 @@ var left = postData.prevprev[0];
   return (
     <div className="home">
         <div className="nav">
+            <div onClick={() => historyBackward}>&larr; Backward</div> <div onClick={() => historyBackward}>Forward &rarr; </div>
         </div>
-        <Third content={left} historyBackward={historyBackward} historyForward={historyForward}/>
-        <Third content={middle} historyBackward={historyBackward} historyForward={historyForward}/>
-        <Third content={right} historyBackward={historyBackward} historyForward={historyForward}/>
+        <div className="content">
+            <Third content={left} historyBackward={historyBackward} historyForward={historyForward}/>
+            <Third content={middle} historyBackward={historyBackward} historyForward={historyForward}/>
+            <Third content={right} historyBackward={historyBackward} historyForward={historyForward}/>
+        </div>
     </div>
   );
 }

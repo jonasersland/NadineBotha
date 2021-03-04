@@ -1,3 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body{
   font-family: 'Inter';
   font-size: 1.5rem;
@@ -26,14 +33,70 @@ a:hover{
   font-weight:600;
 }
 
-.half{
-  width:50%;
+.third{
+
+}
+.thirdContent{
+  padding: 20px;
+  border-radius: 5px;
+}
+.thirdWrapper{
+  width:33%;
+  float:left;
+  padding: 20px;
+}
+
+
+.tagItem .thirdContent{
+  background: #E5FFD9;
+}
+.tagItem .linkElement{
+  color: #6b7e62;
+  background: #bad3ae;
+}
+
+.referenceItem .thirdContent{
+  background: #f3dde4;
+}
+
+.referenceItem .linkElement{
+  color: #966e7a;
+  background: #c59ba8;
+}
+
+.project .thirdContent{
+  background: #d9e6ff;
+}
+
+.project .linkElement{
+  color: #7b88a1;
+  background: #bbcff5;
+}
+
+.linkElement{
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline;
+  cursor:pointer;
+}
+.linkElement:hover{
+  color:black;
+}
+
+.nav {
+  width:100%;
+  padding:20px;
+}
+.nav div{
   float:left;
 }
 
-.third{
-  width:33%;
-  float:left;
+.content{
+  float: left;
+  width: 100%;
 }
 
 .App {

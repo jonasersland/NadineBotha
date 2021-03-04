@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Right = ({content, historyBackward, historyForward}) =>{
+import LinkElement from '../linkElement/linkElement.component';
+
+const Right = ({content, historyForward}) =>{
 
     return(
-    <div className='third'>
-            <button onClick={historyBackward}>backward</button>
-            <button linkto="glass" onClick={historyForward}>forward</button>
+    <div className={`thirdWrapper ${content._type}`}>
+            {/* <button onClick={historyForward}>forward</button> */}
         {
         (content._type != 'tagItem')
           ?
-          <div className="content">
-            <div className="title">{content.title} - {'('+ content._type +')'}</div>
+          <div className="thirdContent">
+            <div className={`title`}>{content.title}</div>
             <br/>
             Tags or references:
             <br/>
@@ -20,16 +21,14 @@ const Right = ({content, historyBackward, historyForward}) =>{
               (post, index) =>
                 (
                   <div key={index}>
-                    <Link to={"/"+post.matched[0].slug.current}>
-                      {post.matched[0].title}
-                    </Link>
+                      <div linkelementtarget={post.matched[0].slug.current} onClick={function(e){historyForward(e)}} className={`linkElement ${post.matched[0]._type}`}>{post.matched[0].title}</div>
                   </div>
                 )
               )
             }
           </div>
           : 
-          <div className="content">
+          <div className="thirdContent">
             <div className="title">{content.title} - {'('+ content._type +')'}</div>
             <br/>
             Items tagged with {content.title}:
@@ -39,9 +38,7 @@ const Right = ({content, historyBackward, historyForward}) =>{
               (post, index) =>
                 (
                   <div key={index}>
-                    <Link to={"/"+post.slug.current}>
-                      {post.title}
-                    </Link>
+                      <div linkelementtarget={post.slug.current} onClick={function(e){historyForward(e)}} className={`linkElement ${post._type}`}>{post.title}</div>
                   </div>
                 )
               )
