@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Right = ({position, content, dispatchAddToHistory}) =>{
+    console.log(position);
     console.log(content);
-    if (!content) return <div>Loading...</div>;
+    // if (!content) return null;
     return(
+        
     <div className={`thirdWrapper ${content._type}`}>
         {
         (content._type != 'tagItem')
