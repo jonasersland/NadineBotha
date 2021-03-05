@@ -13,7 +13,7 @@ function urlFor(source) {
 }
 
 
-const browseHistory = ['flowers', '1980',''];
+const browseHistory = ['flowers', '',''];
 
     const historyReducer = (browseHistory, action) => {
         console.log(action.payload);
@@ -88,35 +88,35 @@ function historyStateHasContent(i){
     }
     return condition
 }
-
+//TODO: finn ut hvorfor det ikke går når det mangler to elementer (bare ett)
+// prøv å sette if else etter 'prev' 'prevprev', så objektet finnes men bare er uten innhold
 useEffect(() => {
     let fetchRequest = 
-        `*[]{${historyStateHasContent(1) ? `
-        "current":*[slug.current == "${returnHistoryState(1)}"]{
+        `*[]{
+            
+        "current":${historyStateHasContent(1) ? ` *[slug.current == "${returnHistoryState(1)}"]{
                     title,
                     _type,
                     "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
                     "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
                 },
-            `:``}
-        ${historyStateHasContent(2) ? `
-            "prev": *[slug.current == "${returnHistoryState(2)}"]
+            `:`{},`}
+            "prev":${historyStateHasContent(2) ? ` *[slug.current == "${returnHistoryState(2)}"]
                 {
                     title,
                     _type,
                     "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
                     "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
                 },
-            `:``}
-        ${historyStateHasContent(3) ? `
-            "prevprev": *[slug.current == "${returnHistoryState(3)}"]
+            `:`{},`}
+            "prevprev": ${historyStateHasContent(3) ? ` *[slug.current == "${returnHistoryState(3)}"]
                 {
                     title,
                     _type,
                     "references": referenceTags[]{"matched": *[_type == "tagItem" && _id == ^._ref || _type == "referenceItem" && _id == ^._ref]},
                     "tagged": *[_type == "referenceItem" && references(^._id) || _type == "project" && references(^._id)]{ title,slug,_type },
                 },
-            `:``}}`; 
+            `:`{}`}}`; 
 console.log(fetchRequest);
     sanityClient
     .fetch(fetchRequest)
@@ -128,24 +128,19 @@ console.log(postData);
 
 if (!postData) return <div>Loading...</div>;
 
-// add condition setting data only if it exists
-// var right = postData.current;
-// var middle = postData.prev[0];
-// var left = postData.prevprev[0];
-
   return (
     <div className="home">
         <div className="nav">
             <div> &larr; Backward </div> <div onClick={() => dispatch({ type: 'forward', payload: 'glass' })}> Forward &rarr; </div>
         </div>
         <div className="content">
-            {postData.prevprev[0] != null ?
+            {postData.prevprev[0].length ?
             <Third position='left' content={postData.prevprev[0]} dispatchAddToHistory={dispatchAddToHistory}/>
             :''}
-            {postData.prev[0] != null ?
+            {postData.prev[0].length ?
             <Third position='middle' content={postData.prev[0]} dispatchAddToHistory={dispatchAddToHistory}/>
             :''}
-            {postData.current != null ?
+            {postData.current.length ?
             <Third position='right' content={postData.current[0]} dispatchAddToHistory={dispatchAddToHistory}/>
             :''}
         </div>
