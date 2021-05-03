@@ -22,9 +22,10 @@ export default {
         description: 'The unique string at the end of the URL. Click "generate" to generate this automatically.'
       },
       {
-        name: 'projectText',
+        name: 'text',
         title: 'Text',
         type: 'blockContent',
+        required:false,
       },
       {
         title: 'Tags and references',

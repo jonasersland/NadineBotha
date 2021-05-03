@@ -29,10 +29,12 @@ export default {
 
     },
     {
-      name: 'referenceText',
+      name: 'text',
       title: 'Text',
       type: 'blockContent',
-      description: 'The same idea applies here – we have the option of adding some text in case we might want to use it later.'
+      description: 'The same idea applies here – we have the option of adding some text in case we might want to use it later.',
+      required:false,
+      
     },
   ],
   preview: {

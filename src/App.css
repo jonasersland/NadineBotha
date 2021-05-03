@@ -26,8 +26,13 @@ a:hover{
   background: #c7d6f3;
 }
 
+.navInactive {
+color:grey;
+}
+
+
 .content{
-  margin:20px;
+  padding:20px;
 }
 .title{
   font-weight:600;
@@ -39,11 +44,18 @@ a:hover{
 .thirdContent{
   padding: 20px;
   border-radius: 5px;
+  height: 100%;
+  position:relative;
 }
 .thirdWrapper{
-  width:33%;
-  float:left;
+  width: 33.33%;
+  float: left;
   padding: 20px;
+  height: calc(100vh - 40px);
+}
+.references{
+  position: absolute;
+  bottom: 20px;
 }
 
 

@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Route component={scroller} path="/" />
+        <Route component={scroller} path="/NadineBotha/" />
       </div>
     </BrowserRouter>
   );

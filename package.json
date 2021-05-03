@@ -1,6 +1,7 @@
 {
   "name": "nadine-botha",
   "version": "0.1.0",
+  "homepage": "/NadineBotha/",
   "private": true,
   "dependencies": {
     "@sanity/block-content-to-react": "^2.0.7",
