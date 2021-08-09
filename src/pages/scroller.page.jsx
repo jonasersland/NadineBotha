@@ -12,7 +12,7 @@ function urlFor(source) {
   return builder.image(source);
 }
 
-const browseHistory = ['flowers', '',''];
+const browseHistory = ['virus', '',''];
 const historyReducer = (browseHistory, action) => {
     switch (action.type){
         case 'add':

@@ -1,3 +1,0 @@
-{
-    "query": "*[_type == 'referenceItem' || _type == 'project' || _type == 'tagItem' ]"
-}
