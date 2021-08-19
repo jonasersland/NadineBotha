@@ -21,5 +21,15 @@ export default {
             type: "mux.video",
             description: 'Upload a video file',
           }
-    ]
+    ],
+    preview: {
+      select: {
+        title: 'title',
+      },
+      prepare(title) {
+        return {
+          title: 'video'
+        }
+      }
+    },
   }

@@ -1,0 +1,36 @@
+
+.cardContent{
+    padding: 20px;
+    border-radius: 5px;
+    height: 100%;
+    position:relative;
+    border: thin solid;
+    overflow: scroll;
+  }
+  .cardWrapper{
+    width: calc(33.33% - 50px);
+    float: left;
+    padding: 8px;
+    height: calc(100vh - 40px);
+  }
+  .referenceTypeVideo .blockContent,  .referenceTypeImage .blockContent {
+      font-size:12px;
+  }
+
+  .referenceTypeQuote .blockContent{
+    font-size: 20px;
+    line-height: 27px;
+  }
+
+  .videoWrapper{
+    margin: 20px 0px;
+  }
+  .imageWrapper{
+    margin: 20px 0px;
+  }
+
+  .internalLink{
+    cursor:pointer;
+    border-bottom:thin solid;
+    color:blue;
+  }

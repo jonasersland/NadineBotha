@@ -1,0 +1,36 @@
+.tagsContainer{
+    width:150px;
+    position:relative;
+    float:left;
+    height:100%;
+    font-size: 12px;
+    padding-left: 30px;
+}
+.tagsListWrapper{
+    position:absolute;
+    width:auto;
+    transform: rotate(90deg);
+    transform-origin: left;
+    top: -5px;
+}
+.tagsListTitle{
+    color:gray;
+}
+.tagsList{
+    margin:0;
+    padding:0;
+    list-style:none;
+    padding-top:5px;
+}
+.tagsList li{
+    float:none;
+    white-space: nowrap;
+    display:inline;
+    margin-right:20px;
+    cursor:pointer;
+    color:black
+}
+
+.tagsList li:hover{
+    color:gray
+}

@@ -1,3 +1,4 @@
+import {BiMessageAdd as icon} from 'react-icons/bi'
 /**
  * This is the schema definition for the rich text fields used for
  * for this blog studio. When you import it in schemas.js it can be
@@ -40,17 +41,51 @@ export default {
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
           {
-            title: 'URL',
             name: 'link',
             type: 'object',
+            title: 'External link',
             fields: [
               {
-                title: 'URL',
                 name: 'href',
                 type: 'url',
+                title: 'URL'
               },
-            ],
+              {
+                title: 'Open in new tab',
+                name: 'blank',
+                type: 'boolean'
+              }
+            ]
           },
+          {
+            name: 'internalLink',
+            type: 'object',
+            title: 'Internal link',
+            icon,
+            fields: [
+              {
+                name: 'reference',
+                type: 'reference',
+                title: 'Reference',
+                to: [
+                  { type: 'project' },
+                  { type: 'referenceItem' },
+                ]
+              }
+            ]
+          }
+          // {
+          //   title: 'URL',
+          //   name: 'link',
+          //   type: 'object',
+          //   fields: [
+          //     {
+          //       title: 'URL',
+          //       name: 'href',
+          //       type: 'url',
+          //     },
+          //   ],
+          // },
         ],
       },
     },
